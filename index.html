@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -246,7 +247,7 @@ footer{border-top:1px solid var(--border);padding:28px 0;text-align:center;font-
     <div class="modal-title-bar" id="modal-title">Demo</div>
     <button class="modal-close" onclick="closeDemo()">✕ Close  [ESC]</button>
   </div>
-  <iframe class="modal-frame" id="demo-frame" sandbox="allow-scripts allow-same-origin"></iframe>
+  <iframe class="modal-frame" id="demo-frame"></iframe>
 </div>
 
 <script>
@@ -501,9 +502,7 @@ render();
 // MODAL CONTROL
 // ================================================
 function openDemo(key, title) {
-  const blob = new Blob([DEMOS[key]], { type: 'text/html' });
-  const url = URL.createObjectURL(blob);
-  document.getElementById('demo-frame').src = url;
+  document.getElementById('demo-frame').srcdoc = DEMOS[key];
   document.getElementById('modal-title').textContent = '▶ ' + title;
   document.getElementById('demo-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -511,7 +510,7 @@ function openDemo(key, title) {
 function closeDemo() {
   document.getElementById('demo-modal').classList.remove('open');
   document.body.style.overflow = '';
-  setTimeout(() => { document.getElementById('demo-frame').src = ''; }, 200);
+  setTimeout(() => { document.getElementById('demo-frame').srcdoc = ''; }, 200);
 }
 document.getElementById('demo-modal').addEventListener('click', e => { if (e.target === e.currentTarget) closeDemo(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDemo(); });
